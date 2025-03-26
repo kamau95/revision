@@ -1,0 +1,29 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(235, 228, 241);
+}
+header{
+    background-color: rgb(127, 127, 211);
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 40px;
+}
+header nav ul{
+    display: flex;
+    list-style: none;
+    align-items: baseline;
+}
+.wrapper{
+    background-color: rgb(174, 112, 231);
+    display: flex;
+    flex-direction: row;
+}
+.main{
+    flex: 3;
+    margin-right: 60px;
+}
+.aside{
+    flex: 1;
+}
