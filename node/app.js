@@ -6,9 +6,17 @@ app.set('view engine', 'ejs');
 
 app.listen(3000);
 
+//middleware static files
+app.use( express.static('public'));
+
 app.get('/', (req, res)=> {
     //res.sendFile('./views/index.html', {root: __dirname});
-    res.render('index');    
+
+    const blogs = [
+        {title: "food study", snippet: 'foooo', body: 'get to study many foods'},
+        {title: "electronics", snippet: 'tronicccc', body: 'electronics are manmade'}
+    ];
+    res.render('index', {blogs: blogs});    
 });
 
 app.get('/about', (req, res)=>{
