@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+    <link rel="stylesheet" href="/styles.css"> <!-- Optional: Add CSS -->
+</head>
+<body>
+    <h1>All Notes</h1>
+    <ul>
+        <% notes.forEach(note => { %>
+            <li>
+                <h2><%= note.title %></h2>
+                <p><%= note.content %></p>
+            </li>
+        <% }); %>
+    </ul>
+    <button onclick="window.location.href='/create-note'">Add Note</button>
+</body>
+</html>

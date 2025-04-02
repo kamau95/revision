@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>creating</title>
+    <link rel="stylesheet" href="/create.css"> 
+</head>
+<body>
+    <div class="container">
+        <h2>create a note</h2>
+
+        <% if (errors.length > 0) { %>
+            <div class="error-box">
+                <% errors.forEach(error => { %>
+                    <p class="error-message"><%= error.msg %></p>
+                <% }) %>
+            </div>
+        <% } %>
+        
+        <form action="/submit-note" method="post">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="content">Content:</label>
+            <input type="text" id="content" name="content" required>
+            
+            <button type="submit">save note</button>
+        </form>
+    </div>
+    
+</body>
+</html>
