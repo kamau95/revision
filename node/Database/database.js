@@ -32,3 +32,15 @@ export async function createNote(title, content){
         const id = result.insertId;
         return getNote(id);
 }
+export async function deleteNote(id){
+    try{
+        const [result] = await pool.execute(`
+            delete from notes where id= ?
+            `, [id]);
+            return result.affectedRows > 0;
+    } catch(err){
+        console.error('error when deleting:', err);
+        throw err;
+    }
+    
+}

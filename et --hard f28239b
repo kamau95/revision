@@ -1,7 +1,0 @@
-[33mef1149f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{0}: revert: Revert "mysql connection"
-[33m57e111f[m[33m ([m[1;31morigin/main[m[33m)[m HEAD@{1}: commit: mysql connection
-[33m9c869a3[m HEAD@{2}: reset: moving to HEAD~1
-[33mf28239b[m HEAD@{3}: commit: mysql connection
-[33m9c869a3[m HEAD@{4}: commit: server side rendering
-[33med081d2[m HEAD@{5}: Branch: renamed refs/heads/master to refs/heads/main
-[33med081d2[m HEAD@{7}: commit (initial): any code

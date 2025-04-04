@@ -1,5 +1,5 @@
 import express from 'express';
-import { getNotes, getNote, createNote } from './database.js';
+import { getNotes, getNote, createNote, deleteNote } from './database.js';
 import {check, validationResult} from 'express-validator';//validation of user inputs
 
 
@@ -53,6 +53,16 @@ app.get('/notes', async(req, res)=>{
 //create note view
 app.get('/create-note', (req, res)=>{
     res.render('createNotes', {errors: []});
+})
+
+//delete a note
+app.delete('/notes/:id', async (req, res)=>{
+    const id = req.params.id;
+    try{
+        await deleteNote(id)
+    } catch(err){
+        console.log(err);
+    }
 })
 
 
