@@ -34,6 +34,8 @@ app.get('/blogs/create', (req, res)=>{
     res.render('create');
 })
 
+
+
 //404 page
 app.use( (req, res)=>{
     //res.sendFile('./views/404.html', {root:__dirname});

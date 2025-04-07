@@ -12,8 +12,16 @@ const pool = mysql.createPool({
 }).promise();
 
 export async function getNotes(){
-    const [rows] = await pool.query("select * from notes");
-    return rows;
+    try{
+        const [rows] = await pool.query("SELECT * FROM notes");
+        if (!rows || rows.length === 0) {
+            throw new Error('No notes found');
+        }
+        return rows;
+    } catch(err){
+        console.error('Error fetching notes:', err);
+        throw err;
+    }
 }
 
 export async function getNote(id){
@@ -21,7 +29,7 @@ export async function getNote(id){
         select * from notes
         where id = ?
         `, [id])
-        return rows;
+        return rows[0];
 };
 
 export async function createNote(title, content){
@@ -43,4 +51,16 @@ export async function deleteNote(id){
         throw err;
     }
     
+}
+
+export async function updateNote(id, title, content){
+    try{
+        const[result]= await pool.execute(
+            'UPDATE notes SET title = ?, content = ? WHERE id = ?',
+            [title, content, id]);
+            return result.affectedRows > 0;
+    }catch(err){
+        console.error('error updating note', err);
+        throw err;
+    }
 }

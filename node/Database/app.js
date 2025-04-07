@@ -1,5 +1,5 @@
 import express from 'express';
-import { getNotes, getNote, createNote, deleteNote } from './database.js';
+import { getNotes, getNote, createNote, deleteNote, updateNote } from './database.js';
 import {check, validationResult} from 'express-validator';//validation of user inputs
 
 
@@ -44,8 +44,13 @@ app.post('/submit-note', [
 app.get('/notes', async(req, res)=>{
     try{
         const notes = await getNotes();
+        console.log(notes);
+        if (!notes || notes.length === 0) {
+            return res.status(404).send("No notes found");
+        }
         res.render('mynotes', {notes});
     } catch(err){
+        console.log(err);
         res.status(500).send("error fetching notes");
     }
 });
@@ -55,15 +60,51 @@ app.get('/create-note', (req, res)=>{
     res.render('createNotes', {errors: []});
 })
 
-//delete a note
-app.delete('/notes/:id', async (req, res)=>{
-    const id = req.params.id;
+
+//Route to render the edit form with current note data
+app.get('/edit-note/:id', async(req, res)=>{
+    const id= req.params.id;
     try{
-        await deleteNote(id)
+        const note= await getNote(id);
+        if (!note){
+            return res.status(404).send('Note not found');
+        }
+        res.render('edit-note', {note})
     } catch(err){
-        console.log(err);
+        res.status(500).send("error fetching the note");
     }
-})
+});
+
+app.post('/update-note/:id', async(req, res)=>{
+    const id= req.params.id;
+    const {title, content}= req.body;
+    try{
+        const updated= await updateNote(id, title, content);
+        if(updated){
+            const notes= await getNotes();
+            res.render('mynotes', {notes});
+        } else{
+            console.log("note not found")
+        }
+    } catch(err){
+        res.status(500).send("error updating note");
+    }  
+});
+
+//delete a note
+app.post('/delete-item/:id', async (req, res)=>{
+    const noteId= req.params.id;
+    try{
+        const deleted= deleteNote(noteId);
+        if(deleted){
+            res.redirect('/notes');
+        } else{
+            res.status(404).send('note not found');
+        }
+    } catch(err){
+        res.status(500).send('error in deleting the note');
+    }
+});
 
 
 app.use((err, req, res, next) => {
