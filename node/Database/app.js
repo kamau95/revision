@@ -44,9 +44,8 @@ app.post('/submit-note', [
 app.get('/notes', async(req, res)=>{
     try{
         const notes = await getNotes();
-        console.log(notes);
         if (!notes || notes.length === 0) {
-            return res.status(404).send("No notes found");
+            return res.send('<h2>No notes available</h2>');
         }
         res.render('mynotes', {notes});
     } catch(err){

@@ -14,9 +14,6 @@ const pool = mysql.createPool({
 export async function getNotes(){
     try{
         const [rows] = await pool.query("SELECT * FROM notes");
-        if (!rows || rows.length === 0) {
-            throw new Error('No notes found');
-        }
         return rows;
     } catch(err){
         console.error('Error fetching notes:', err);
